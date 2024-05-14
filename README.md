@@ -79,7 +79,7 @@ class MyRepository {
         $this->sqlBlade = $sqlBlade;
     }
     
-    public function allMedia(): array
+    public function users(): array
     {
         return $this->sqlBlade->executeQuery('select_user', [
                 'emails' => ['foo@example.com', 'bar@example.com']
@@ -101,5 +101,5 @@ Executed queries are logged in `laravel.log` file. In which there are:
 - file name, 
 - sql query that was executed, 
 - arguments, 
-- argument types 
+- argument types,
 - query execution time in sec.
