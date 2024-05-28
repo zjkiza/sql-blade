@@ -16,5 +16,8 @@ shutdown:
 test: ## run tests
 	@docker-compose run --rm php_package_1 composer phpunit
 
-static-analysis: ## verify code type-level soundness
+static-analysis-phpstan: ## verify code type-level soundness
 	docker-compose run --rm php_package_1 composer phpstan
+
+static-analysis-psalm: ## verify code type-level soundness
+	docker-compose run --rm php_package_1 composer psalm

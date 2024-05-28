@@ -7,16 +7,20 @@ namespace Zjk\SqlBlade\Logger;
 use Zjk\SqlBlade\Contract\SqlLoggerInterface;
 use Illuminate\Log\LogManager;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class SqlLogger implements SqlLoggerInterface
 {
     private ?float $start = null;
 
     /**
      * @var array{
-     *     'sql' : string,
-     *     'args' : array<string, mixed>,
-     *     'types' : array<string, int>,
-     *     'executionMS': float
+     *     queryPath: string,
+     *     sql : string,
+     *     args : array<string, mixed>,
+     *     types : array<string, int>,
+     *     executionMS : float
      * }
      */
     private array $query;
