@@ -8,6 +8,7 @@ The packages execute raw SQL queries which are in a separate file with the flexi
 - You place queries in separate files. (Ex: `select_user.blade.sql`).
 - Execute your queries using `Zjk\SqlBlade\Contract\SqlBladeInterface` service.
 - Result of execution `Zjk\SqlBlade\Contract\SqlBladeInterface->executeQuery(..)` is instance of Doctrine\DBAL\Driver\Result, use their methods to get results.
+- Query execution via transaction `Zjk\SqlBlade\Contract\SqlBladeInterface->transaction(..)`
 
 # Installation
 
@@ -69,6 +70,7 @@ Working in php, Example:
 namespace App\Example;
 
 use Zjk\SqlBlade\Contract\SqlBladeInterface;
+use Doctrine\DBAL\Result;
 
 class MyRepository {
     
@@ -87,6 +89,15 @@ class MyRepository {
                  'emails' => ArrayParameterType::STRING,
               ])->fetchAllAssociative()
     }    
+    
+    public function withTransaction(): array
+    {
+        $result = $this->sqlBlade->transaction(function (SqlBladeInterface $sqlBlade): Result {
+            return $sqlBlade->executeQuery('select_without_blade');
+        }, TransactionIsolationLevel::READ_UNCOMMITTED);
+
+        return $result->fetchAllAssociative();
+    }   
 }
 
 ```

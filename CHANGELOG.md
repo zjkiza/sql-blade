@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.3]
+Added
+- New functionality query execution via transaction `Zjk\SqlBlade\Contract\SqlBladeInterface->transaction(\Closure $func, int $transactionIsolationLevel = TransactionIsolationLevel::READ_COMMITTED): ?Result`
+
 ## [0.5.2]
 Added
 - Psalm
