@@ -1,8 +1,9 @@
 /.phpunit.cache
 /vendor
 /.idea
-/bin
 /build
 .env
 .phpunit.result.cache
 .php-cs-fixer.cache
+/bin/__pycache__
+/bin/utility/__pycache__

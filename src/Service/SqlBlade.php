@@ -33,7 +33,7 @@ final class SqlBlade implements SqlBladeInterface
         private Connection $connection,
         private Factory $factoryQuery,
         private SqlLoggerInterface $sqlLogger,
-        private bool $isDebug
+        private bool $isDebug,
     ) {
     }
 
