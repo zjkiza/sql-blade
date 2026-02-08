@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.5]
+Added
+- Composer updated.
+
 ## [0.5.4]
 Added
 - Composer updated.
