@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.6]
+Optimization
+- Docker optimization for development
+
 ## [0.5.5]
 Added
 - Composer updated.

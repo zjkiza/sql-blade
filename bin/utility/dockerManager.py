@@ -37,7 +37,7 @@ class DockerManager:
         self.console.print(Markdown('# Running docker containers ...'), width=120, style="green")
 
         result = subprocess.run(
-            f'docker-compose -f {self.docker_compose_files} up -d --build {"> /dev/null" if not self.verbose else ""}',
+            f'DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1  docker-compose -f {self.docker_compose_files} up -d --build {"> /dev/null" if not self.verbose else ""}',
             shell=True,
             stdout=subprocess.PIPE
         )

@@ -7,3 +7,4 @@
 .php-cs-fixer.cache
 /bin/__pycache__
 /bin/utility/__pycache__
+composer.lock
