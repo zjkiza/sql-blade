@@ -6,6 +6,7 @@ namespace Zjk\SqlBlade;
 
 use Zjk\SqlBlade\Contract\SqlBladeInterface;
 use Zjk\SqlBlade\Contract\SqlLoggerInterface;
+use Zjk\SqlBlade\Doctrine\ConnectionFactory;
 use Zjk\SqlBlade\Logger\SqlLogger;
 use Zjk\SqlBlade\Service\SqlBlade;
 use Illuminate\Support\Facades\App;
@@ -20,7 +21,7 @@ class SqlBladeProvider extends ServiceProvider
         $this->app->bind(SqlLoggerInterface::class, fn (): SqlLogger => new SqlLogger(App::make('log')));
 
         $this->app->bind(SqlBladeInterface::class, fn (): SqlBlade => new SqlBlade(
-            App::make('db.connection')->getDoctrineConnection(),
+            (new ConnectionFactory())->create(App::make('db.connection')),
             App::make('view'),
             App::make(SqlLoggerInterface::class),
             Config::get('app.debug')

@@ -27,7 +27,7 @@ final class ExceptionTest extends TestCase
     public function testExpectExceptionWhenNoPathOrFileExists(): void
     {
         $this->expectException(LoaderErrorException::class);
-        $this->expectExceptionMessage('Could not find query source: lorem. View [lorem] not found.');
+        $this->expectExceptionMessageContains('Could not find query source: lorem. View [lorem] not found.');
 
         $this->sqlBlade->executeQuery('lorem')->fetchAllAssociative();
     }
@@ -35,7 +35,7 @@ final class ExceptionTest extends TestCase
     public function testExpectExceptionWhenExistBladeSyntaxError(): void
     {
         $this->expectException(SyntaxErrorException::class);
-        $this->expectExceptionMessage('Query source with_blade_error contains Blade syntax error. syntax error, unexpected token "endif", expecting end of file (View: /www/tests/Resource/sql/with_blade_error.blade.sql)');
+        $this->expectExceptionMessageMatches('~^Query source with_blade_error contains Blade syntax error\. syntax error, unexpected token "endif", expecting end of file \(View: .+/tests/Resource/sql/with_blade_error\.blade\.sql\)$~');
 
         $this->sqlBlade->executeQuery('with_blade_error', [
             'ids' => [2, 1],
@@ -47,7 +47,7 @@ final class ExceptionTest extends TestCase
     public function testExpectExceptionWhenVariableNotPassed(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('The query "variable_not_passed" cannot be executed. An exception occurred while executing a query: SQLSTATE[HY000]: General error: 1 no such column: name');
+        $this->expectExceptionMessageContains('The query "variable_not_passed" cannot be executed. An exception occurred while executing a query: SQLSTATE[HY000]: General error: 1 no such column: name');
 
         $this->sqlBlade->executeQuery('variable_not_passed')->fetchAllAssociative();
     }

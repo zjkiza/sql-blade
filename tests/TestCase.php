@@ -15,6 +15,7 @@ class TestCase extends Orchestra_TestCase
         parent::setUp();
 
         $this->loadMigrationsFrom(__DIR__.'/Resource/migration');
+        /** @psalm-suppress PossiblyInvalidMethodCall */
         $this->artisan('migrate', ['--database' => 'testdb'])->run();
 
         $this->addUsers();
@@ -35,7 +36,17 @@ class TestCase extends Orchestra_TestCase
             'database' => ':memory:',
         ]);
 
-        $app['config']->set('view.paths', ['tests/Resource/sql']);
+        $app['config']->set('app.debug', true);
+        $app['config']->set('view.paths', [__DIR__.'/Resource/sql']);
+    }
+
+    /**
+     * Portable replacement for PHPUnit's deprecated expectExceptionMessage():
+     * expectExceptionMessageIsOrContains() exists only in PHPUnit >= 13.4, while the matrix also runs PHPUnit 10 - 12.
+     */
+    protected function expectExceptionMessageContains(string $message): void
+    {
+        $this->expectExceptionMessageMatches('~'.\preg_quote($message, '~').'~');
     }
 
     protected function addUsers(): void

@@ -21,6 +21,9 @@
     <issueHandlers>
         <DeprecatedMethod errorLevel="info"/>
         <DeprecatedFunction errorLevel="info"/>
+        <!-- Psalm 6 only: #[\Override] needs PHP 8.3 to have any effect and final would be a BC break for a public library. -->
+        <MissingOverrideAttribute errorLevel="suppress"/>
+        <ClassMustBeFinal errorLevel="suppress"/>
     </issueHandlers>
 
     <plugins>

@@ -6,6 +6,9 @@ namespace Zjk\SqlBlade\Tests\Resource\model;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $email
+ */
 class User extends Model
 {
     protected $guarded = [];

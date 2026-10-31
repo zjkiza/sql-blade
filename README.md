@@ -10,6 +10,17 @@ The packages execute raw SQL queries which are in a separate file with the flexi
 - Result of execution `Zjk\SqlBlade\Contract\SqlBladeInterface->executeQuery(..)` is instance of Doctrine\DBAL\Driver\Result, use their methods to get results.
 - Query execution via transaction `Zjk\SqlBlade\Contract\SqlBladeInterface->transaction(..)`
 
+# Requirements
+
+| Package            | Supported versions                               |
+|--------------------|--------------------------------------------------|
+| PHP                | 8.2, 8.3, 8.4, 8.5 (Laravel 13 needs PHP >= 8.3) |
+| Laravel            | 11.x, 12.x, 13.x                                 |
+| `doctrine/dbal`    | ^3.6                                             |
+| Database drivers   | MySQL / MariaDB, PostgreSQL, SQLite, SQL Server  |
+
+The matrix is verified by the GitHub Actions workflow `.github/workflows/tests.yml`.
+
 # Installation
 
 Add `zjkiza/sql-blade` to your composer.json file:

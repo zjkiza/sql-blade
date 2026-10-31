@@ -15,7 +15,7 @@ final class SqlLoggerTest extends TestCase
 {
     public function testCalled(): void
     {
-        $connection = $this->createMock(Connection::class);
+        $connection = $this->createStub(Connection::class);
         $factory = $this->createMock(Factory::class);
         $sqlLogger = $this->createMock(SqlLogger::class);
 

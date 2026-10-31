@@ -1,4 +1,4 @@
-FROM php:8.3-cli
+FROM php:8.4-cli
 
 ARG SYSTEM_TIMEZONE=UTC
 ARG APP_ENV=dev
@@ -21,7 +21,7 @@ ENV TZ=${SYSTEM_TIMEZONE} \
     PHP_IDE_CONFIG=${PHP_IDE_CONFIG} \
     SYSTEM_TIMEZONE=${SYSTEM_TIMEZONE}
 
-RUN apt-get update --fix-missing && apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     git \
     unzip \
@@ -86,4 +86,4 @@ COPY --chown=${LOCAL_USER} . /www
 COPY docker/php/cmd.sh /usr/local/bin/cmd.sh
 RUN chmod +x /usr/local/bin/cmd.sh
 
-CMD ["/bin/bash", "-c", "/usr/local/bin/cmd.sh"]
+CMD ["/usr/local/bin/cmd.sh"]

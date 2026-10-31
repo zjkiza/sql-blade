@@ -9,6 +9,7 @@ use Illuminate\Log\LogManager;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Zjk\SqlBlade\Contract\SqlBladeInterface;
+use Zjk\SqlBlade\Doctrine\ConnectionFactory;
 use Zjk\SqlBlade\Exception\RuntimeException;
 use Zjk\SqlBlade\Service\SqlBlade;
 use Zjk\SqlBlade\Tests\Resource\Logger\SqlLogger;
@@ -27,7 +28,7 @@ final class SqlBladeTest extends TestCase
 
         /* @var SqlBladeInterface $sqlBlade */
         $this->sqlBlade = new SqlBlade(
-            App::make('db.connection')->getDoctrineConnection(), // @phpstan-ignore-line
+            (new ConnectionFactory())->create(App::make('db.connection')), // @phpstan-ignore-line
             App::make('view'), // @phpstan-ignore-line
             $this->sqlLogger,
             Config::get('app.debug') // @phpstan-ignore-line
@@ -52,8 +53,9 @@ final class SqlBladeTest extends TestCase
     public function testExpectExceptionForTheWrongIsolationLevel(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Transaction isolation level it\'s out the allowed range [1-4].');
+        $this->expectExceptionMessageContains('Transaction isolation level it\'s out the allowed range [1-4].');
 
+        /** @psalm-suppress InvalidArgument */
         $this->sqlBlade->transaction(function (SqlBladeInterface $sqlBlade): void {
             $sqlBlade->executeQuery('select_without_blade');
         }, 5); // @phpstan-ignore-line

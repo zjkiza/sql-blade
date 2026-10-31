@@ -25,6 +25,7 @@ class SqlLogger implements SqlLoggerInterface
      */
     private array $query;
 
+    /** @var list<string> */
     private array $logged = [];
 
     public function __construct(private LogManager $logManager)
@@ -57,6 +58,9 @@ class SqlLogger implements SqlLoggerInterface
         $this->logged[] = $logSql;
     }
 
+    /**
+     * @return list<string>
+     */
     public function getLoggedQueries(): array
     {
         return $this->logged;

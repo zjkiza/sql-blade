@@ -18,7 +18,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\View\ViewException;
 
 /**
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
 final class SqlBlade implements SqlBladeInterface
 {
@@ -83,6 +83,7 @@ final class SqlBlade implements SqlBladeInterface
 
         try {
             $result = null;
+            /** @var Result|null $result */
             $result = $func($this);
 
             $this->sqlLogger->startQuery('TRANSACTION', '"COMMIT"');
@@ -106,7 +107,6 @@ final class SqlBlade implements SqlBladeInterface
      *
      * @throws LoaderErrorException
      * @throws SyntaxErrorException
-     * @throws ViewException
      */
     private function getSql(string $queryPath, array $args): string
     {
@@ -126,7 +126,11 @@ final class SqlBlade implements SqlBladeInterface
      */
     private function validationTransactionIsolationLevel(int $transactionIsolationLevel): void
     {
-        /** @psalm-suppress DocblockTypeContradiction */
+        /**
+         * @psalm-suppress DocblockTypeContradiction
+         *
+         * @phpstan-ignore function.alreadyNarrowedType
+         */
         if (!\in_array($transactionIsolationLevel, self::TRANSACTION_ISOLATION_LEVEL, true)) {
             throw new RuntimeException('Transaction isolation level it\'s out the allowed range [1-4].', 422);
         }
